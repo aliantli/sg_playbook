@@ -30,7 +30,8 @@
 ### clb安全组配置
 *clb安全组创建需要放通ingress所绑定的监听端口，否则会出现外网访问502<br>
 放通如下端口<br>
-
+[<img width="1206" height="171" alt="Clipboard_Screenshot_1753087195" src="https://github.com/user-attachments/assets/e9783aea-8dd6-4a67-8adf-010b5cde5afe" />
+](https://github.com/aliantli/sg_playbook/blob/0b44b5a67cffbe817f0ddcf23af1949d034bd7c7/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/8.png)
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的安全组<br>
 参考链接:https://cloud.tencent.com/document/product/457/78198<br> 
@@ -41,6 +42,9 @@ kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 kubectl apply -f ingress.yaml
 ```
+4.为弹性网卡绑定安全组
+前往 控制台-->集群-->集群name-->组件管理-->eniipamd-->更新配置
+点击如下开启安全组绑定后点击右方现在开始创建的安全组(辅助弹性网卡默认不绑定安全组需要手动开启)
 到此服务及其安全组已经部署完成
 # 验证
 前往 控制台-->集群-->集群name-->服务与路由-->ingress<br>
