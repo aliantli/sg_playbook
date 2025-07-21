@@ -1,1 +1,19 @@
-
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nodeport-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"  # 指定 Ingress Controller 类型（如 Nginx）
+    nginx.ingress.kubernetes.io/rewrite-target: /  # 路径重写（按需添加）
+spec:
+  rules:
+  - host: # 访问域名
+    http:
+      paths:
+      - path: /              # 路由路径
+        pathType: Prefix      # 匹配类型（Prefix 或 Exact）
+        backend:
+          service:
+            name: my-nodeport-service  # 关联的 NodePort Service 名称
+            port:
+              number: 80      # Service 的端口（非 NodePort 端口）
