@@ -22,13 +22,13 @@
 *节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)，否则可能出现外网访问504<br>
 主机端口配置/查看路径:控制台-->集群-->服务与路由-->ingress-->更新配置<br>
 ### pod(辅助)网卡安全组配置
-*弹性网卡安全组需要放通pod上部署的服务访问端口(即80端口)否则会出现外网访问504
+*弹性网卡安全组需要放通pod上部署的服务访问端口(以80端口为例)否则会出现外网访问504
 ### clb安全组配置
-*clb安全组创建需要放通ingress所绑定的监听端口(即80端口)，否则会出现外网访问502<br>
+*clb安全组创建需要放通ingress所绑定的监听端口(以80端口为例)，否则会出现外网访问502<br>
 监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的节点安全组<br>
-2.家目录创建ng-deploy-ingress.yaml
+2.家目录创建[ng-deploy-ingress.yaml](https://github.com/aliantli/sg_playbook/blob/adc761fcde1f23c7bf71025040df127d93dcbf50/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-ingress.yaml)<br>
 3.执行下列命令<br>
 ```
 kubectl apply -f ng-deploy-ingress.yaml
