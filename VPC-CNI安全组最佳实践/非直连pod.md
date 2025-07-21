@@ -4,8 +4,13 @@
 外网访问pod
 [<img width="4493" height="530" alt="企业微信截图_e648c6ff-2a3e-4178-942c-ec93fca0a8e0" src="https://github.com/user-attachments/assets/7851667e-1bf3-4081-8231-c474d8a965ff" />](https://github.com/aliantli/sg_playbook/blob/0e0637fcacc2bc3e788012c0b4be200231fe58de/VPC-CNI%E5%AE%89%E5%85%A8%E7%BB%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/image/1.png)
 pod访问外网
-# 前置条件
 
+# 前置条件
+本次操作以ingress下clb类型为例
+1.TKE 集群已存在且需启用VPC-CNI网络模式
+参考链接：https://cloud.tencent.com/document/product/457/103981 
+2.确保集群有可用节点且kubectl已配置访问权限
+参考链接：https://kubernetes.io/docs/tasks/tools/  
 # 快速开始
 
 # 错误排查
