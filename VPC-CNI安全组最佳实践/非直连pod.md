@@ -11,7 +11,7 @@ pod访问外网
 参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
 2.确保集群有可用节点且kubectl已配置访问权限<br>
 参考链接：https://kubernetes.io/docs/tasks/tools/<br> 
-3.创建。  文档
+3.创建deployment.yaml,service.yaml,ingress.yaml文档
 
 # 快速开始
 执行
