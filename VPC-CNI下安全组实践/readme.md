@@ -25,16 +25,24 @@
 ### 弹性网卡安全组配置
 *弹性网卡安全组需要放通pod上部署的服务访问端口否则会出现外网访问504<br>
 安全组示例(以80端口为例)<br>
+[<img width="1031" height="308" alt="Clipboard_Screenshot_1753084104" src="https://github.com/user-attachments/assets/37b3249f-c93e-42f2-bf0d-54e7475f47b7" />
+](https://github.com/aliantli/sg_playbook/blob/7ecbe1fea4a7fce2e86a92cc16d4d3c7be2eefe1/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/3.png)
 ### clb安全组配置
 *clb安全组创建需要放通ingress所绑定的监听端口，否则会出现外网访问502<br>
 安全组示例(以80端口为例)<br>
+[<img width="1031" height="308" alt="Clipboard_Screenshot_1753084104" src="https://github.com/user-attachments/assets/37b3249f-c93e-42f2-bf0d-54e7475f47b7" />
+](https://github.com/aliantli/sg_playbook/blob/7ecbe1fea4a7fce2e86a92cc16d4d3c7be2eefe1/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/3.png)
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的安全组<br>
 参考链接:https://cloud.tencent.com/document/product/457/78198<br> 
 2.家目录创建[deployment.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/deployment.yaml), [service.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/service.yaml), [ingress.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ingress.yaml)文件<br>
-2.执行下列命令<br>
+3.执行下列命令<br>
 ```
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 kubectl apply -f ingress.yaml
 ```
+到此服务及其安全组已经部署完成
+# 验证
+前往
+# 问题排查
