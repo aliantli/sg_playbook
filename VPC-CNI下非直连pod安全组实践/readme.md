@@ -19,30 +19,25 @@
 出站规则全放通或者与入站规则一致<br>
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
 ### 节点安全组配置
-*节点安全组创建需要放通service服务所绑定的主机端口，否则可能出现外网访问504<br>
-放通如下端口(可前往 控制台-->集群-->集群name-->服务与路由-->ingress-->更新配置 里查看)<br>
-[<img width="1021" height="208" alt="Clipboard_Screenshot_1753086685" src="https://github.com/user-attachments/assets/89865fc4-1b4f-408e-b1a6-7b9a813a08dc" />
-](https://github.com/aliantli/sg_playbook/blob/3b606911875b1bf8cb97745570e476536063f8bf/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/7.png)
-
-### 弹性网卡安全组配置
-*弹性网卡安全组需要放通pod上部署的服务访问端口否则会出现外网访问504<br>
-放通服务所暴露端口(以80端口为例)
+*节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)，否则可能出现外网访问504(可前往 控制台-->集群-->集群name-->服务与路由-->ingress-->更新配置 里查看或者指定)<br>
+### pod(辅助)网卡安全组配置
+*弹性网卡安全组需要放通pod上部署的服务访问端口(即80端口)否则会出现外网访问504
 ### clb安全组配置
-*clb安全组创建需要放通ingress所绑定的监听端口，否则会出现外网访问502<br>
-放通如下端口(可前往 控制台-->集群-->集群name-->服务与路由-->service-->更新配置 里查看)<br>
-[<img width="1206" height="171" alt="Clipboard_Screenshot_1753087195" src="https://github.com/user-attachments/assets/e9783aea-8dd6-4a67-8adf-010b5cde5afe" />
-](https://github.com/aliantli/sg_playbook/blob/0b44b5a67cffbe817f0ddcf23af1949d034bd7c7/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/8.png)
+*clb安全组创建需要放通ingress所绑定的监听端口(即80端口)，否则会出现外网访问502(可前往 控制台-->集群-->集群name-->服务与路由-->service-->更新配置 里查看)<br>
 ## 服务部署<br>
-1.创建原生节点并绑定已创建好的安全组<br>
-参考链接:https://cloud.tencent.com/document/product/457/78198<br> 
-2.家目录创建[deployment.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/deployment.yaml), [service.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/service.yaml), [ingress.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ingress.yaml)文件<br>
+1.创建原生节点并绑定已创建好的节点安全组<br>
+2.家目录创建
 3.执行下列命令<br>
 ```
 kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml
-kubectl apply -f ingress.yaml
 ```
-4.为弹性网卡绑定安全组
+出现以下内容即为成功
+```
+deployment.apps/secure-web-app created
+service/nodeport-svc created
+ingress.networking.k8s.io/minimal-ingress created
+```
+4.为pod(辅助)网卡绑定安全组
 前往 控制台-->集群-->集群name-->组件管理-->eniipamd-->更新配置
 点击如下开启安全组绑定后点击右方现在开始创建的安全组(辅助弹性网卡默认不绑定安全组需要手动开启)<br>
 [<img width="755" height="145" alt="Clipboard_Screenshot_1753087562" src="https://github.com/user-attachments/assets/30ccdcc6-3cfd-45f1-925a-9f21408e6a73" />
@@ -53,14 +48,28 @@ kubectl apply -f ingress.yaml
 ](https://github.com/aliantli/sg_playbook/blob/e0a70a4e60b4c73743a14cec63f5a1be6385cf9b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753087913.png)
 到此服务及其安全组已经部署完成
 # 验证
-前往 控制台-->集群-->集群name-->服务与路由-->ingress<br>
-点击下面内容进行访问<br>
-[<img width="1007" height="322" alt="Clipboard_Screenshot_1753084765" src="https://github.com/user-attachments/assets/cddcbe22-2c2f-4318-917e-eb66fcce1fdd" />
-](https://github.com/aliantli/sg_playbook/blob/523b58ea6cae9fff44eb136ad1fe740798ffea68/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/4.png)
-出现以下内容即为成功<br>
-[<img width="1055" height="285" alt="Clipboard_Screenshot_1753085070" src="https://github.com/user-attachments/assets/2cd1b0db-37f4-46db-9e0a-7b2be9e9fc60" />
-](https://github.com/aliantli/sg_playbook/blob/d4bc87a84ab8baa36198368791f1d094ec462a60/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/5.png)
-
+在pod所在节点执行下面命令查看ingress所生成的外网IP
+```
+kubectl get ingress -o wide
+```
+输出示例
+```
+NAME              CLASS    HOSTS   ADDRESS        PORTS   AGE
+minimal-ingress   <none>   *       106.52.99.35   80      8m36s
+```
+在节点curl输出的ip
+```curl -I 106.52.99.35```
+返回200即为配置成功
+```
+HTTP/1.1 200 OK
+Date: Mon, 21 Jul 2025 10:02:10 GMT
+Content-Type: text/html
+Content-Length: 615
+Connection: keep-alive
+Server: nginx/1.25.5
+Last-Modified: Tue, 16 Apr 2024 14:29:59 GMT
+ETag: "661e8b67-267"
+Accept-Ranges: bytes```
 # 问题快速排查
    | 状态码 | 排查点| 排查项目|
    | :-----: | :--: | :-----: |
