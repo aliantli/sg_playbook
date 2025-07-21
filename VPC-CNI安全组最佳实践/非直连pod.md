@@ -11,7 +11,7 @@ pod访问外网
 参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
 2.确保集群有可用节点且kubectl已配置访问权限<br>
 参考链接：https://kubernetes.io/docs/tasks/tools/<br> 
-3.创建[deployment.yaml](https://github.com/aliantli/sg_playbook/blob/72bdae68b44ee03d1da5a540ac8457b91c238d1c/VPC-CNI%E5%AE%89%E5%85%A8%E7%BB%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/deployment.yaml),service.yaml,ingress.yaml文档
+3.创建[deployment.yaml](https://github.com/aliantli/sg_playbook/blob/72bdae68b44ee03d1da5a540ac8457b91c238d1c/VPC-CNI%E5%AE%89%E5%85%A8%E7%BB%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/deployment.yaml),[service.yaml](https://github.com/aliantli/sg_playbook/blob/54199f7e356081d9d878445548300afa5115f0b9/VPC-CNI%E5%AE%89%E5%85%A8%E7%BB%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/service.yaml),ingress.yaml文档
 
 # 快速开始
 执行
