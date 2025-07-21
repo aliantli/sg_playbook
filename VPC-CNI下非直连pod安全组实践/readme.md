@@ -19,11 +19,13 @@
 出站规则全放通或者与入站规则一致<br>
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
 ### 节点安全组配置
-*节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)，否则可能出现外网访问504(可前往 控制台-->集群-->集群name-->服务与路由-->ingress-->更新配置 里查看或者指定)<br>
+*节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)，否则可能出现外网访问504<br>
+主机端口配置/查看路径:控制台-->集群-->服务与路由-->ingress-->更新配置<br>
 ### pod(辅助)网卡安全组配置
 *弹性网卡安全组需要放通pod上部署的服务访问端口(即80端口)否则会出现外网访问504
 ### clb安全组配置
-*clb安全组创建需要放通ingress所绑定的监听端口(即80端口)，否则会出现外网访问502(可前往 控制台-->集群-->集群name-->服务与路由-->service-->更新配置 里查看)<br>
+*clb安全组创建需要放通ingress所绑定的监听端口(即80端口)，否则会出现外网访问502
+监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的节点安全组<br>
 2.家目录创建
@@ -31,19 +33,19 @@
 ```
 kubectl apply -f deployment.yaml
 ```
-出现以下内容即为成功
+出现以下内容即为创建成功
 ```
 deployment.apps/secure-web-app created
 service/nodeport-svc created
 ingress.networking.k8s.io/minimal-ingress created
 ```
-4.为pod(辅助)网卡绑定安全组
-前往 控制台-->集群-->集群name-->组件管理-->eniipamd-->更新配置
+4.为pod(辅助)网卡绑定pod(辅助)安全组
+前往 控制台-->集群-->组件管理-->eniipamd-->更新配置
 点击如下开启安全组绑定后点击右方现在开始创建的安全组(辅助弹性网卡默认不绑定安全组需要手动开启)<br>
-[<img width="755" height="145" alt="Clipboard_Screenshot_1753087562" src="https://github.com/user-attachments/assets/30ccdcc6-3cfd-45f1-925a-9f21408e6a73" />
-](https://github.com/aliantli/sg_playbook/blob/f4e9398cb6dbe9493014f36627208549531a5456/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753087562.png)
+[<img width="2552" height="1154" alt="企业微信截图_6342c1f3-dac7-40c7-9ac4-111c2140f53f" src="https://github.com/user-attachments/assets/65fb6575-a073-47b7-9d05-b9799095c46f" />
+](https://github.com/aliantli/sg_playbook/blob/409ddd1252641489131f6a2f8ad7107c14d1fdb8/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_6342c1f3-dac7-40c7-9ac4-111c2140f53f.png)
 5.为ingress下的clb绑定安全组<br>
-前往 控制台-->集群-->集群name-->服务与路由-->ingress 点击如下内容进入为其绑定安全组<br>
+前往 控制台-->集群-->服务与路由-->ingress 点击如下内容进入为其绑定安全组<br>
 [<img width="900" height="320" alt="Clipboard_Screenshot_1753087913" src="https://github.com/user-attachments/assets/2140e372-8e81-4786-a1e5-269005c09845" />
 ](https://github.com/aliantli/sg_playbook/blob/e0a70a4e60b4c73743a14cec63f5a1be6385cf9b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753087913.png)
 到此服务及其安全组已经部署完成
