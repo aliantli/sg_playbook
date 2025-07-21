@@ -44,5 +44,7 @@ kubectl apply -f ingress.yaml
 ```
 到此服务及其安全组已经部署完成
 # 验证
-前往
+前往 控制台-->集群-->集群name-->服务与路由-->ingress<br>
+
+
 # 问题排查
