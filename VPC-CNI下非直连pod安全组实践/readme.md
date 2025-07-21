@@ -69,7 +69,9 @@ Connection: keep-alive
 Server: nginx/1.25.5
 Last-Modified: Tue, 16 Apr 2024 14:29:59 GMT
 ETag: "661e8b67-267"
-Accept-Ranges: bytes```
+Accept-Ranges: bytes
+```
+
 # 问题快速排查
    | 状态码 | 排查点| 排查项目|
    | :-----: | :--: | :-----: |
