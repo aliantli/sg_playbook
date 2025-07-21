@@ -20,7 +20,7 @@
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
 ### 节点安全组配置
 *节点安全组创建需要放通service服务所绑定的主机端口，否则可能出现外网访问504<br>
-放通如下端口<br>
+放通如下端口(可前往 控制台-->集群-->集群name-->服务与路由-->ingress-->更新配置 里查看)<br>
 [<img width="1021" height="208" alt="Clipboard_Screenshot_1753086685" src="https://github.com/user-attachments/assets/89865fc4-1b4f-408e-b1a6-7b9a813a08dc" />
 ](https://github.com/aliantli/sg_playbook/blob/3b606911875b1bf8cb97745570e476536063f8bf/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/7.png)
 
@@ -29,7 +29,7 @@
 放通服务所暴露端口(以80端口为例)
 ### clb安全组配置
 *clb安全组创建需要放通ingress所绑定的监听端口，否则会出现外网访问502<br>
-放通如下端口<br>
+放通如下端口(可前往 控制台-->集群-->集群name-->服务与路由-->service-->更新配置 里查看)<br>
 [<img width="1206" height="171" alt="Clipboard_Screenshot_1753087195" src="https://github.com/user-attachments/assets/e9783aea-8dd6-4a67-8adf-010b5cde5afe" />
 ](https://github.com/aliantli/sg_playbook/blob/0b44b5a67cffbe817f0ddcf23af1949d034bd7c7/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/8.png)
 ## 服务部署<br>
@@ -49,7 +49,8 @@ kubectl apply -f ingress.yaml
 ](https://github.com/aliantli/sg_playbook/blob/f4e9398cb6dbe9493014f36627208549531a5456/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753087562.png)
 5.为ingress下的clb绑定安全组<br>
 前往 控制台-->集群-->集群name-->服务与路由-->ingress 点击如下内容进入为其绑定安全组<br>
-
+[<img width="900" height="320" alt="Clipboard_Screenshot_1753087913" src="https://github.com/user-attachments/assets/2140e372-8e81-4786-a1e5-269005c09845" />
+](https://github.com/aliantli/sg_playbook/blob/e0a70a4e60b4c73743a14cec63f5a1be6385cf9b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753087913.png)
 到此服务及其安全组已经部署完成
 # 验证
 前往 控制台-->集群-->集群name-->服务与路由-->ingress<br>
