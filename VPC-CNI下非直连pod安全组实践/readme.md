@@ -45,12 +45,10 @@ ingress.networking.k8s.io/minimal-ingress created
 [<img width="2552" height="1154" alt="企业微信截图_6342c1f3-dac7-40c7-9ac4-111c2140f53f" src="https://github.com/user-attachments/assets/65fb6575-a073-47b7-9d05-b9799095c46f" />
 ](https://github.com/aliantli/sg_playbook/blob/409ddd1252641489131f6a2f8ad7107c14d1fdb8/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_6342c1f3-dac7-40c7-9ac4-111c2140f53f.png)
 5.为ingress下的clb绑定安全组<br>
-前往 控制台-->集群-->服务与路由-->ingress 点击如下内容进入为其绑定安全组<br>
-[<img width="900" height="320" alt="Clipboard_Screenshot_1753087913" src="https://github.com/user-attachments/assets/2140e372-8e81-4786-a1e5-269005c09845" />
-](https://github.com/aliantli/sg_playbook/blob/e0a70a4e60b4c73743a14cec63f5a1be6385cf9b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753087913.png)
+前往 控制台-->集群-->服务与路由-->ingress-->类型 跳转到安全组配置界面为clb绑定安全组<br>
 到此服务及其安全组已经部署完成
 # 验证
-在pod所在节点执行下面命令查看ingress所生成的外网IP
+在pod所在节点执行下面命令查看ingress所生成的供外网访问的IP
 ```
 kubectl get ingress -o wide
 ```
