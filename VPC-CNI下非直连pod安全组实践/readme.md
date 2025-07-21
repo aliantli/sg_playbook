@@ -16,25 +16,42 @@
 # 快速开始
 本次操作以nginx服务为例(服务端口80,主机端口31000,外网访问端口80)<br>
 ## 安全组配置
-出站规则全放通或者与入站规则一致<br>
+出站规则全放通或者按需配置，本此操作以出站规则全放通为例<br>
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
+
 ### 节点安全组配置
-*节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)，否则可能出现外网访问504<br>
+*节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)<br>
 主机端口配置/查看路径:控制台-->集群-->服务与路由-->ingress-->更新配置<br>
+安全组规则
+|sg_id|出/入站| 来源| 协议端口| 策略|
+|:--: |:--:  | :-----: | :--: | :-----: |
+|sg-ephmfdsf |  入站| all | tcp:31000 | 允许 |
+ | | 出站| all | all|  允许 |
+
 ### pod(辅助)网卡安全组配置
-*弹性网卡安全组需要放通pod上部署的服务访问端口(以80端口为例)否则会出现外网访问504
+*弹性网卡安全组需要放通pod上部署的服务访问端口(以80端口为例)
+安全组规则
+|sg_id|出/入站| 来源| 协议端口| 策略|
+|:--: |:--:  | :-----: | :--: | :-----: |
+|sg-c2givfsx |  入站| all | tcp:80 | 允许 |
+|  | 出站| all | all|  允许 |
+
 ### clb安全组配置
-*clb安全组创建需要放通ingress所绑定的监听端口(以80端口为例)，否则会出现外网访问502<br>
+*clb安全组创建需要放通ingress所绑定的监听端口(以80端口为例)<br>
 监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
+安全组规则
+
+|sg_id|出/入站| 来源| 协议端口| 策略|
+|:--: |:--:  | :-----: | :--: | :-----: |
+| sg-m2bb6vu3|  入站| all | tcp:80 | 允许 |
+|  | 出站| all | all|  允许 |
+
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的节点安全组<br>
-2.家目录创建[ng-deploy-ingress.yaml](https://github.com/aliantli/sg_playbook/blob/adc761fcde1f23c7bf71025040df127d93dcbf50/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-ingress.yaml)文件<br>
+2.家目录创建[ng-deploy-ingress.yaml](https://github.com/aliantli/sg_playbook/blob/adc761fcde1f23c7bf71025040df127d93dcbf50/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-ingress.yaml)文件(该yaml文件内自动为ingress的clb绑定安全组，按照自己需求进行更改)<br>
 3.执行下列命令<br>
 ```
-kubectl apply -f ng-deploy-ingress.yaml
-```
-出现以下内容即为创建成功
-```
+[root@VM-35-196-tlinux ~]# kubectl apply -f lx.yaml  
 deployment.apps/secure-web-app created
 service/nodeport-svc created
 ingress.networking.k8s.io/minimal-ingress created
@@ -43,23 +60,17 @@ ingress.networking.k8s.io/minimal-ingress created
 前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组(pod(辅助)网卡默认不绑定安全组需要手动开启)<br>
 [<img width="2552" height="1154" alt="企业微信截图_6342c1f3-dac7-40c7-9ac4-111c2140f53f" src="https://github.com/user-attachments/assets/65fb6575-a073-47b7-9d05-b9799095c46f" />
 ](https://github.com/aliantli/sg_playbook/blob/409ddd1252641489131f6a2f8ad7107c14d1fdb8/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_6342c1f3-dac7-40c7-9ac4-111c2140f53f.png)
-5.为ingress下的clb绑定安全组<br>
-前往 控制台-->集群-->服务与路由-->ingress-->类型 跳转到安全组配置界面为clb绑定安全组<br>
 到此服务及其安全组已经部署完成
 # 验证
-在pod所在节点执行下面命令查看ingress所生成的供外网访问的IP
+执行下面命令查看ingress所生成的供外网访问的IP
 ```
-kubectl get ingress -o wide
-```
-输出示例
-```
+[root@VM-35-196-tlinux ~]# kubectl get ingress -o wide
 NAME              CLASS    HOSTS   ADDRESS        PORTS   AGE
 minimal-ingress   <none>   *       106.52.99.35   80      8m36s
 ```
 在节点curl输出的ip
-```curl -I 106.52.99.35```
-返回200即为配置成功
 ```
+[root@VM-35-196-tlinux ~]# curl -I 106.52.99.35
 HTTP/1.1 200 OK
 Date: Mon, 21 Jul 2025 10:02:10 GMT
 Content-Type: text/html
