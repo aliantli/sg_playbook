@@ -8,13 +8,13 @@
 [<img width="3401" height="796" alt="企业微信截图_6527d6cd-5396-4160-b1d9-d21ffd48ed8b" src="https://github.com/user-attachments/assets/25846d8d-114c-4033-a1d5-d2759f664ead" />
 ](https://github.com/aliantli/sg_playbook/blob/e3eba8f7eb06d00ba23e741ec69049d0873d13ab/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/6.png)
 # 前置条件
-本次操作以nginx服务为例，主机端口暴露31000端口，外网访问暴露80端口<br>
 1.创建tke集群VPC-CNI网络模式<br>
 参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
 2.确保集群有可用节点且kubectl已配置访问权限<br>
 参考链接:https://kubernetes.io/docs/tasks/tools/ <br>
 
 # 快速开始
+本次操作以nginx服务为例，主机端口暴露31000端口，外网访问暴露80端口<br>
 ## 安全组配置
 出站规则全放通或者与入站规则一致<br>
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
