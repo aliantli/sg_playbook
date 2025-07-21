@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: secure-web-app
+  name: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: secure-web
+      app: nginx
   template:
     metadata:
       labels:
-        app: secure-web
+        app: nginx
     spec:
       containers:
-      - name: web-container
+      - name: nginx
         image: nginx:1.25
         ports:
         - containerPort: 80
@@ -22,24 +22,23 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeport-svc  # 服务名称
+  name: nginx  # 服务名称
 spec:
   type: NodePort  # 节点端口类型
   selector:
-    app: secure-web  # 必须与Deployment中Pod标签匹配
+    app: nginx  # 必须与Deployment中Pod标签匹配
   ports:
   - name: http
     protocol: TCP
     port: 80          # Service的端口（CLB通过此端口访问）
     targetPort: 80     # 容器监听的端口（Pod端口）
-    nodePort: 31000    # 节点端口（30000-32767范围）
-
+    
 ---
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minimal-ingress
+  name: nginx
 spec:
   rules:
   - http:
@@ -48,7 +47,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: nodeport-svc  # 关联您创建的NodePort Service
+            name: nginx  # 关联您创建的NodePort Service
             port:
               number: 80        # Service端口
 
