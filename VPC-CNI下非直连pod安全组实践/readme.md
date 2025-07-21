@@ -28,7 +28,7 @@
 监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的节点安全组<br>
-2.家目录创建[ng-deploy-ingress.yaml](https://github.com/aliantli/sg_playbook/blob/adc761fcde1f23c7bf71025040df127d93dcbf50/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-ingress.yaml)<br>
+2.家目录创建[ng-deploy-ingress.yaml](https://github.com/aliantli/sg_playbook/blob/adc761fcde1f23c7bf71025040df127d93dcbf50/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-ingress.yaml)文件<br>
 3.执行下列命令<br>
 ```
 kubectl apply -f ng-deploy-ingress.yaml
