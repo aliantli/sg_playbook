@@ -20,9 +20,8 @@
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
 ### 节点安全组配置
 *节点安全组创建需要放通service服务所绑定的主机端口，否则可能出现外网访问504<br>
-安全组示例(以31000端口为例）<br>
-[<img width="1442" height="308" alt="Clipboard_Screenshot_1753082934" src="https://github.com/user-attachments/assets/09b5476d-3617-4758-a903-7ac9c1b10f5f" />
-](https://github.com/aliantli/sg_playbook/blob/691cd5763b0d7db549267d30ab2aa2f53e96f580/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/2.png)
+放通如下端口<br>
+
 
 ### 弹性网卡安全组配置
 *弹性网卡安全组需要放通pod上部署的服务访问端口否则会出现外网访问504<br>
