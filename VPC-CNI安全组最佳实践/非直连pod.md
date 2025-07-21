@@ -15,5 +15,7 @@ pod访问外网
 
 # 快速开始
 执行
-``` kubectl apply -f   ```
+``` kubectl apply -f  deployment.yaml
+    kubectl apply -f  service.yaml
+    kubectl apply -f  ingress.yaml```
 # 错误排查
