@@ -14,7 +14,7 @@
 参考链接:https://kubernetes.io/docs/tasks/tools/ <br>
 
 # 快速开始
-本次操作以nginx服务为例，主机端口暴露31000端口，外网访问暴露80端口<br>
+本次操作以nginx服务为例(服务端口80,主机端口31000,外网访问杜端口80)<br>
 ## 安全组配置
 出站规则全放通或者与入站规则一致<br>
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
@@ -54,7 +54,7 @@ kubectl apply -f ingress.yaml
 到此服务及其安全组已经部署完成
 # 验证
 前往 控制台-->集群-->集群name-->服务与路由-->ingress<br>
-点击下面内容进行访问
+点击下面内容进行访问<br>
 [<img width="1007" height="322" alt="Clipboard_Screenshot_1753084765" src="https://github.com/user-attachments/assets/cddcbe22-2c2f-4318-917e-eb66fcce1fdd" />
 ](https://github.com/aliantli/sg_playbook/blob/523b58ea6cae9fff44eb136ad1fe740798ffea68/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/4.png)
 出现以下内容即为成功<br>
