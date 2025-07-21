@@ -21,18 +21,16 @@
 ### 节点安全组配置
 *节点安全组创建需要放通service服务所绑定的主机端口，否则可能出现外网访问504<br>
 放通如下端口<br>
-
+[<img width="1021" height="208" alt="Clipboard_Screenshot_1753086685" src="https://github.com/user-attachments/assets/89865fc4-1b4f-408e-b1a6-7b9a813a08dc" />
+](https://github.com/aliantli/sg_playbook/blob/3b606911875b1bf8cb97745570e476536063f8bf/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/7.png)
 
 ### 弹性网卡安全组配置
 *弹性网卡安全组需要放通pod上部署的服务访问端口否则会出现外网访问504<br>
-安全组示例(以80端口为例)<br>
-[<img width="1031" height="308" alt="Clipboard_Screenshot_1753084104" src="https://github.com/user-attachments/assets/37b3249f-c93e-42f2-bf0d-54e7475f47b7" />
-](https://github.com/aliantli/sg_playbook/blob/7ecbe1fea4a7fce2e86a92cc16d4d3c7be2eefe1/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/3.png)
+放通服务所暴露端口(以80端口为例)
 ### clb安全组配置
 *clb安全组创建需要放通ingress所绑定的监听端口，否则会出现外网访问502<br>
-安全组示例(以80端口为例)<br>
-[<img width="1031" height="308" alt="Clipboard_Screenshot_1753084104" src="https://github.com/user-attachments/assets/37b3249f-c93e-42f2-bf0d-54e7475f47b7" />
-](https://github.com/aliantli/sg_playbook/blob/7ecbe1fea4a7fce2e86a92cc16d4d3c7be2eefe1/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/3.png)
+放通如下端口<br>
+
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的安全组<br>
 参考链接:https://cloud.tencent.com/document/product/457/78198<br> 
