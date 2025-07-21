@@ -10,22 +10,29 @@
 本次操作以nginx服务为例，主机端口暴露31000端口，外网访问暴露80端口<br>
 1.创建tke集群VPC-CNI网络模式<br>
 参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
-3.创建[deployment.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/deployment.yaml),[service.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/service.yaml),[ingress.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ingress.yaml)文件<br>
+2.确保集群有可用节点且kubectl已配置访问权限<br>
+参考链接:https://kubernetes.io/docs/tasks/tools/ <br>
 
 # 快速开始
-## 安全组配置并绑定
+## 安全组配置
+前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
 ### 节点安全组配置
-1:创建安全组
-前往：私有网络-->安全-->安全组-->新建 为节点创建安全组<br>
 *节点安全组创建需要放通service服务所绑定的主机端口，否则可能出现外网访问504<br>
 安全组示例(以31000端口为例）<br>
-
-2:创建原生节点
-参考链接https://cloud.tencent.com/document/product/457/78198 
+[<img width="1442" height="308" alt="Clipboard_Screenshot_1753082934" src="https://github.com/user-attachments/assets/09b5476d-3617-4758-a903-7ac9c1b10f5f" />
+](https://github.com/aliantli/sg_playbook/blob/691cd5763b0d7db549267d30ab2aa2f53e96f580/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/2.png)
 
 ### 弹性网卡安全组配置
+*弹性网卡安全组需要放通pod上部署的服务访问端口否则会出现外网访问504<br>
+安全组示例(以80端口为例)<br>
 ### clb安全组配置
-## 服务部署，执行下列命令<br>
+*clb安全组创建需要放通ingress所绑定的监听端口，否则会出现外网访问502<br>
+安全组示例(以80端口为例)<br>
+## 服务部署<br>
+1.创建原生节点并绑定已创建好的安全组<br>
+参考链接:https://cloud.tencent.com/document/product/457/78198<br> 
+2.家目录创建[deployment.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/deployment.yaml), [service.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/service.yaml), [ingress.yaml](https://github.com/aliantli/sg_playbook/blob/6b6b9cfb132f7a3a261bcfe9fe93607bbda99a2c/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ingress.yaml)文件<br>
+2.执行下列命令<br>
 ```
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
