@@ -20,22 +20,23 @@
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
 
 ### 节点安全组配置
-*节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)本次安全组id以sg_id:sg-ephmfdsf为例<br>
-主机端口配置/查看路径:控制台-->集群-->服务与路由-->ingress-->更新配置<br>
+*主机端口配置/查看路径:控制台-->集群-->服务与路由-->ingress-->更新配置<br>
+节点安全组创建需要放通service服务所绑定的主机端口(以31000端口为例)本次安全组id以sg-ephmfdsf为例,规则如下<br>
+
 |出/入站| 来源| 协议端口| 策略|
 |:--:  | :-----: | :--: | :-----: |
 |  入站| all | tcp:31000 | 允许 |
   | 出站| all | all|  允许 |
 
 ### pod(辅助)网卡安全组配置
-*弹性网卡安全组需要放通pod上部署的服务访问端口(以80端口为例)本次安全组id以sg_id:sg-c2givfsx为例：
+*弹性网卡安全组需要放通pod上部署的服务访问端口(以80端口为例)，本次安全组id以sg-c2givfsx为例，规则如下
 |出/入站| 来源| 协议端口| 策略|
  |:--:  | :-----: | :--: | :-----: |
  |  入站| all | tcp:80 | 允许 |
  | 出站| all | all|  允许 |
 ### clb安全组配置
-*clb安全组创建需要放通ingress所绑定的监听端口(以80端口为例)本次以sg_id:sg-m2bb6vu3为例<br>
-监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
+*监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
+clb安全组创建需要放通ingress所绑定的监听端口(以80端口为例)，本次安全组id以sg-m2bb6vu3为例，规则如下<br>
 |出/入站| 来源| 协议端口| 策略|
  |:--:  | :-----: | :--: | :-----: |
 |  入站| all | tcp:80 | 允许 |
@@ -55,7 +56,7 @@ ingress.networking.k8s.io/minimal-ingress created
 前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组(pod(辅助)网卡默认不绑定安全组需要手动开启)<br>
 [<img width="908" height="197" alt="Clipboard_Screenshot_1753100854" src="https://github.com/user-attachments/assets/7cd0a352-beaf-459f-bab8-11658b5e2e2e" />
 ](https://github.com/aliantli/sg_playbook/blob/18ba73f4759d9368be1f6bc1c99e8c80251584bd/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753100854.png)
-到此服务及其安全组已经部署完成
+<br>到此服务及其安全组已经部署完成
 # 验证
 执行下面命令查看ingress所生成的供外网访问的IP
 ```
