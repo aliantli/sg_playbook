@@ -39,7 +39,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    ingress.cloud.tencent.com/security-groups: 'sg-'
+    ingress.cloud.tencent.com/security-groups: 'sg-m2bb6vu3'  #绑定安全组id
   name: nginx
 spec:
   rules:
