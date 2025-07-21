@@ -5,7 +5,8 @@
 [<img width="3319" height="814" alt="Clipboard_Screenshot_1753079424" src="https://github.com/user-attachments/assets/3144ec71-4619-4426-8917-f0ba243226ae" />
 ](https://github.com/aliantli/sg_playbook/blob/8ce1a37c90a6d63067dca56699b4b6f8c587666b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/1.png)
 ## pod访问外网
-
+[<img width="3401" height="796" alt="企业微信截图_6527d6cd-5396-4160-b1d9-d21ffd48ed8b" src="https://github.com/user-attachments/assets/25846d8d-114c-4033-a1d5-d2759f664ead" />
+](https://github.com/aliantli/sg_playbook/blob/e3eba8f7eb06d00ba23e741ec69049d0873d13ab/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/6.png)
 # 前置条件
 本次操作以nginx服务为例，主机端口暴露31000端口，外网访问暴露80端口<br>
 1.创建tke集群VPC-CNI网络模式<br>
@@ -52,10 +53,10 @@ kubectl apply -f ingress.yaml
 出现以下内容即为成功<br>
 [<img width="1055" height="285" alt="Clipboard_Screenshot_1753085070" src="https://github.com/user-attachments/assets/2cd1b0db-37f4-46db-9e0a-7b2be9e9fc60" />
 ](https://github.com/aliantli/sg_playbook/blob/d4bc87a84ab8baa36198368791f1d094ec462a60/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/5.png)
-# 问题排查
-   | 状态码 | 居中 | 右对齐 |
-   | :----- | :--: | -----: |
-   | 502  | 数据2 |  数据3 |
-   | 503 | 数据2 |  数据3 |
-   
+# 问题快速排查
+   | 状态码 | 排查点| 排查项目|
+   | :-----: | :--: | :-----: |
+   | 502  | clb层 |  是否放通服务端口 |
+   | 503 | 弹性网卡层 |  是否放通服务暴露的端口 |
+   | | 节点层 |  是否放通service所绑定的主机端口 |
 
