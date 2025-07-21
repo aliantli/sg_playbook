@@ -6,11 +6,14 @@
 pod访问外网
 
 # 前置条件
-本次操作以ingress下clb类型为例
-1.TKE 集群已存在且需启用VPC-CNI网络模式
-参考链接：https://cloud.tencent.com/document/product/457/103981 
-2.确保集群有可用节点且kubectl已配置访问权限
-参考链接：https://kubernetes.io/docs/tasks/tools/  
-# 快速开始
+本次操作以ingress下clb类型为例<br>
+1.TKE 集群已存在且需启用VPC-CNI网络模式<br>
+参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
+2.确保集群有可用节点且kubectl已配置访问权限<br>
+参考链接：https://kubernetes.io/docs/tasks/tools/<br> 
+3.创建。  文档
 
+# 快速开始
+执行
+``` kubectl apply -f   ```
 # 错误排查
