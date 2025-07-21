@@ -28,10 +28,10 @@
 监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的节点安全组<br>
-2.家目录创建
+2.家目录创建ng-deploy-ingress.yaml
 3.执行下列命令<br>
 ```
-kubectl apply -f deployment.yaml
+kubectl apply -f ng-deploy-ingress.yaml
 ```
 出现以下内容即为创建成功
 ```
