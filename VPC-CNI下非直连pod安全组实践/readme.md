@@ -1,12 +1,12 @@
 # 背景
-安全组在容器层面是基础设施级的流量守门员，通过节点边界的粗粒度过滤，为容器环境提供基础网络隔离，本playbook旨在帮助用户1在VPV-CNI网络模式下快速为非直连pod部署安全组，并掌握安全组核心配置方式
+安全组在容器层面是基础设施级的流量守门员，通过节点边界的粗粒度过滤，为容器环境提供基础网络隔离，本playbook旨在帮助用户在VPV-CNI网络模式下快速为非直连pod部署安全组，并掌握安全组核心配置方式
 # pod访问链路
 ## 外网访问pod
 [<img width="3319" height="814" alt="Clipboard_Screenshot_1753079424" src="https://github.com/user-attachments/assets/3144ec71-4619-4426-8917-f0ba243226ae" />
 ](https://github.com/aliantli/sg_playbook/blob/8ce1a37c90a6d63067dca56699b4b6f8c587666b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/1.png)
 ## pod访问外网
-[<img width="3401" height="796" alt="企业微信截图_6527d6cd-5396-4160-b1d9-d21ffd48ed8b" src="https://github.com/user-attachments/assets/25846d8d-114c-4033-a1d5-d2759f664ead" />
-](https://github.com/aliantli/sg_playbook/blob/e3eba8f7eb06d00ba23e741ec69049d0873d13ab/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/6.png)
+[<img width="2456" height="668" alt="Clipboard_Screenshot_1753096635" src="https://github.com/user-attachments/assets/5e3906f7-9b93-4dab-a729-15218d93cf71" />
+](https://github.com/aliantli/sg_playbook/blob/fd73c45e2896d22226a5fd176513ca7c6a615d4f/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753096635.png)
 # 前置条件
 1.创建tke集群VPC-CNI网络模式<br>
 参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
@@ -14,7 +14,7 @@
 参考链接:https://kubernetes.io/docs/tasks/tools/ <br>
 
 # 快速开始
-本次操作以nginx服务为例(服务端口80,主机端口31000,外网访问杜端口80)<br>
+本次操作以nginx服务为例(服务端口80,主机端口31000,外网访问端口80)<br>
 ## 安全组配置
 出站规则全放通或者与入站规则一致<br>
 前往：私有网络-->安全-->安全组-->新建  创建安全组<br>
@@ -24,7 +24,7 @@
 ### pod(辅助)网卡安全组配置
 *弹性网卡安全组需要放通pod上部署的服务访问端口(即80端口)否则会出现外网访问504
 ### clb安全组配置
-*clb安全组创建需要放通ingress所绑定的监听端口(即80端口)，否则会出现外网访问502
+*clb安全组创建需要放通ingress所绑定的监听端口(即80端口)，否则会出现外网访问502<br>
 监听端口配置/查看路径:控制台-->集群-->服务与路由-->service-->更新配置<br>
 ## 服务部署<br>
 1.创建原生节点并绑定已创建好的节点安全组<br>
@@ -40,8 +40,7 @@ service/nodeport-svc created
 ingress.networking.k8s.io/minimal-ingress created
 ```
 4.为pod(辅助)网卡绑定pod(辅助)安全组
-前往 控制台-->集群-->组件管理-->eniipamd-->更新配置
-点击如下开启安全组绑定后点击右方现在开始创建的安全组(辅助弹性网卡默认不绑定安全组需要手动开启)<br>
+前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组(pod(辅助)网卡默认不绑定安全组需要手动开启)<br>
 [<img width="2552" height="1154" alt="企业微信截图_6342c1f3-dac7-40c7-9ac4-111c2140f53f" src="https://github.com/user-attachments/assets/65fb6575-a073-47b7-9d05-b9799095c46f" />
 ](https://github.com/aliantli/sg_playbook/blob/409ddd1252641489131f6a2f8ad7107c14d1fdb8/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_6342c1f3-dac7-40c7-9ac4-111c2140f53f.png)
 5.为ingress下的clb绑定安全组<br>
@@ -76,6 +75,6 @@ Accept-Ranges: bytes
    | 状态码 | 排查点| 排查项目|
    | :-----: | :--: | :-----: |
    | 502  | clb层 |  是否放通服务端口 |
-   | 503 | 弹性网卡层 |  是否放通服务暴露的端口 |
+   | 504 | pod(辅助)网卡层 |  是否放通服务暴露的端口 |
    | | 节点层 |  是否放通service所绑定的主机端口 |
 
