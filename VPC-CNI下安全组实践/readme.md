@@ -45,6 +45,10 @@ kubectl apply -f ingress.yaml
 4.为弹性网卡绑定安全组
 前往 控制台-->集群-->集群name-->组件管理-->eniipamd-->更新配置
 点击如下开启安全组绑定后点击右方现在开始创建的安全组(辅助弹性网卡默认不绑定安全组需要手动开启)<br>
+[<img width="755" height="145" alt="Clipboard_Screenshot_1753087562" src="https://github.com/user-attachments/assets/30ccdcc6-3cfd-45f1-925a-9f21408e6a73" />
+](https://github.com/aliantli/sg_playbook/blob/f4e9398cb6dbe9493014f36627208549531a5456/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753087562.png)
+5.为ingress下的clb绑定安全组<br>
+前往 控制台-->集群-->集群name-->服务与路由-->ingress 点击如下内容进入为其绑定安全组<br>
 
 到此服务及其安全组已经部署完成
 # 验证
@@ -55,6 +59,7 @@ kubectl apply -f ingress.yaml
 出现以下内容即为成功<br>
 [<img width="1055" height="285" alt="Clipboard_Screenshot_1753085070" src="https://github.com/user-attachments/assets/2cd1b0db-37f4-46db-9e0a-7b2be9e9fc60" />
 ](https://github.com/aliantli/sg_playbook/blob/d4bc87a84ab8baa36198368791f1d094ec462a60/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/5.png)
+
 # 问题快速排查
    | 状态码 | 排查点| 排查项目|
    | :-----: | :--: | :-----: |
