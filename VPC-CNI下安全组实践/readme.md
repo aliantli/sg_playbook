@@ -1,6 +1,6 @@
 # 背景
 安全组在容器层面是基础设施级的流量守门员，通过节点边界的粗粒度过滤，为容器环境提供基础网络隔离，本playbook旨在帮助用户快速部署安全组，并掌握安全组核心配置方式
-# 访问pod链路
+# pod访问链路
 ## 外网访问pod
 [<img width="3319" height="814" alt="Clipboard_Screenshot_1753079424" src="https://github.com/user-attachments/assets/3144ec71-4619-4426-8917-f0ba243226ae" />
 ](https://github.com/aliantli/sg_playbook/blob/8ce1a37c90a6d63067dca56699b4b6f8c587666b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/1.png)
@@ -49,6 +49,13 @@ kubectl apply -f ingress.yaml
 点击下面内容进行访问
 [<img width="1007" height="322" alt="Clipboard_Screenshot_1753084765" src="https://github.com/user-attachments/assets/cddcbe22-2c2f-4318-917e-eb66fcce1fdd" />
 ](https://github.com/aliantli/sg_playbook/blob/523b58ea6cae9fff44eb136ad1fe740798ffea68/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/4.png)
-出现以下内容即为成功
-
+出现以下内容即为成功<br>
+[<img width="1055" height="285" alt="Clipboard_Screenshot_1753085070" src="https://github.com/user-attachments/assets/2cd1b0db-37f4-46db-9e0a-7b2be9e9fc60" />
+](https://github.com/aliantli/sg_playbook/blob/d4bc87a84ab8baa36198368791f1d094ec462a60/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/5.png)
 # 问题排查
+   | 状态码 | 居中 | 右对齐 |
+   | :----- | :--: | -----: |
+   | 502  | 数据2 |  数据3 |
+   | 503 | 数据2 |  数据3 |
+   
+
