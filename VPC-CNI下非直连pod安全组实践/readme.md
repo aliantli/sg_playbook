@@ -48,6 +48,7 @@ service四层安全组配置：
 3，将clb安全组通过注解方式进行绑定
 ### 节点层面
 1:service四层
+参考文件：
 ```
 1.创建ng-deployment-service.yaml文件
 2.执行下列命令
@@ -58,7 +59,9 @@ ingress.networking.k8s.io/minimal-ingress created
 到此服务及其安全组已经部署完成
 ```
 2,ingress七层
-```1创建ng-deployment-ingress.yaml
+参考文件：
+```
+1创建ng-deployment-ingress.yaml
 2:执行一下命令
 [root@VM-35-22-tlinux ~]# kubectl apply -f ng-deploy-service.yaml 
 deployment.apps/nginx created
