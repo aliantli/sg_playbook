@@ -3,16 +3,13 @@
 # 
 # 外部入站流量 
 ### service四层模式
-
+[<img width="3371" height="664" alt="企业微信截图_f6c8281a-5853-4513-b146-43b0151600b5" src="https://github.com/user-attachments/assets/df1de979-b3f6-4273-be5e-a10abe27f735" />
+](https://github.com/aliantli/sg_playbook/blob/bc3f100afd1a3d02aa830efd5579adbaff29f09e/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_f6c8281a-5853-4513-b146-43b0151600b5.png)
 ### ingress七层模式
 [<img width="3428" height="664" alt="企业微信截图_29db6bf8-057b-4234-b4b7-bf2bc612c88f" src="https://github.com/user-attachments/assets/79a309d3-9c54-4356-b7fc-b75930415785" />
 ](https://github.com/aliantli/sg_playbook/blob/aed4d33fe8f2817c7341d4644cc0788e354bd2ff/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_29db6bf8-057b-4234-b4b7-bf2bc612c88f.png)
 # 前置条件
-1.创建tke集群VPC-CNI网络模式<br>
-参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
-2.确保集群有可用节点且kubectl已配置访问权限<br>
-参考链接:https://kubernetes.io/docs/tasks/tools/ <br>
-
+已创建VPC-CNI网络模式集群，并配置好kubectl访问权限
 # 快速开始
 本次操作以nginx服务为例(服务端口80,主机端口31000,外网访问端口80)<br>
 ## 安全组配置
