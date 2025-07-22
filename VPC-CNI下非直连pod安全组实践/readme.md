@@ -3,9 +3,10 @@
 # 
 # 外部入站流量 
 ### service四层模式
-[<img width="3319" height="814" alt="Clipboard_Screenshot_1753079424" src="https://github.com/user-attachments/assets/3144ec71-4619-4426-8917-f0ba243226ae" />
-](https://github.com/aliantli/sg_playbook/blob/8ce1a37c90a6d63067dca56699b4b6f8c587666b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/1.png)
+
 ### ingress七层模式
+[<img width="3428" height="664" alt="企业微信截图_29db6bf8-057b-4234-b4b7-bf2bc612c88f" src="https://github.com/user-attachments/assets/79a309d3-9c54-4356-b7fc-b75930415785" />
+](https://github.com/aliantli/sg_playbook/blob/aed4d33fe8f2817c7341d4644cc0788e354bd2ff/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_29db6bf8-057b-4234-b4b7-bf2bc612c88f.png)
 # 前置条件
 1.创建tke集群VPC-CNI网络模式<br>
 参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
