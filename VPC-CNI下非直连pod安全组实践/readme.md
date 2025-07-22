@@ -3,7 +3,7 @@
 # 
 # 外部入站流量 
 ### service四层
-
+[<img width="3370" height="664" alt="企业微信截图_52f94ff5-5f5f-4988-ae4b-9b71375cd810" src="https://github.com/user-attachments/assets/e4b530e3-f678-4712-b887-db931c9859ce" />](https://github.com/aliantli/sg_playbook/blob/8e457ba4f197c03a32dbc5dfaac315a6f5db1854/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/service_flow-chart.png)
 ### ingress七层
 [<img width="3428" height="664" alt="企业微信截图_29db6bf8-057b-4234-b4b7-bf2bc612c88f" src="https://github.com/user-attachments/assets/79a309d3-9c54-4356-b7fc-b75930415785" />
 ](https://github.com/aliantli/sg_playbook/blob/aed4d33fe8f2817c7341d4644cc0788e354bd2ff/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_29db6bf8-057b-4234-b4b7-bf2bc612c88f.png)
@@ -41,13 +41,13 @@ service四层安全组配置：
 ### 集群层面
 1.创建原生节点并绑定已创建好的节点安全组<br>
 2.为pod(辅助)网卡绑定pod(辅助)安全组<br>
-前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组并绑定自己所创建的pod(辅助)网卡安全组<br>
+前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组并绑定自己所创建的pod(辅助)网卡安全组的id此处以sg-m2bb6vu3为例<br>
 [<img width="908" height="197" alt="Clipboard_Screenshot_1753100854" src="https://github.com/user-attachments/assets/7cd0a352-beaf-459f-bab8-11658b5e2e2e" />
 ](https://github.com/aliantli/sg_playbook/blob/18ba73f4759d9368be1f6bc1c99e8c80251584bd/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753100854.png)<br>
 3，将clb安全组通过注解方式进行绑定<br>
 service四层
 ```
-#为yaml文件里service部分添加如下内容
+#为yaml文件里创建service部分添加如下内容
 metadata:
   name: nginx
   annotations:
@@ -55,7 +55,7 @@ metadata:
 ```
 ingress七层
 ```
-#为yaml文件里ingress部分添加如下内容
+#为yaml文件里创建ingress部分添加如下内容
 metadata:
   annotations:
     ingress.cloud.tencent.com/security-groups: 'sg-xxxxx'  #改为自己所创建的安全组id
