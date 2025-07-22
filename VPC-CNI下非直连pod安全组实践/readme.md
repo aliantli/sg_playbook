@@ -2,11 +2,10 @@
 安全组在容器层面是基础设施级的流量守门员，通过节点边界的粗粒度过滤，为容器环境提供基础网络隔离，本playbook旨在帮助用户在VPV-CNI网络模式下快速为非直连pod部署安全组，并掌握安全组核心配置方式
 # 
 # 外部入站流量 
+### service四层模式
 [<img width="3319" height="814" alt="Clipboard_Screenshot_1753079424" src="https://github.com/user-attachments/assets/3144ec71-4619-4426-8917-f0ba243226ae" />
 ](https://github.com/aliantli/sg_playbook/blob/8ce1a37c90a6d63067dca56699b4b6f8c587666b/VPC-CNI%E4%B8%8B%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/1.png)
-# ​出站连接
-[<img width="2456" height="668" alt="Clipboard_Screenshot_1753096635" src="https://github.com/user-attachments/assets/5e3906f7-9b93-4dab-a729-15218d93cf71" />
-](https://github.com/aliantli/sg_playbook/blob/fd73c45e2896d22226a5fd176513ca7c6a615d4f/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753096635.png)
+### ingress七层模式
 # 前置条件
 1.创建tke集群VPC-CNI网络模式<br>
 参考链接:https://cloud.tencent.com/document/product/457/103981 <br>
