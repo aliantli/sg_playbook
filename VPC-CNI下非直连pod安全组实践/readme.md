@@ -46,6 +46,15 @@ service四层安全组配置：
 [<img width="908" height="197" alt="Clipboard_Screenshot_1753100854" src="https://github.com/user-attachments/assets/7cd0a352-beaf-459f-bab8-11658b5e2e2e" />
 ](https://github.com/aliantli/sg_playbook/blob/18ba73f4759d9368be1f6bc1c99e8c80251584bd/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753100854.png)<br>
 3，将clb安全组通过注解方式进行绑定
+service四层
+```
+metadata:
+  name: nginx
+  annotations:
+    service.cloud.tencent.com/security-groups: 'sg-ephmfdsf'
+```
+ingress七层
+```
 ### 节点层面
 1:service四层<br>
 yaml参考文件：[ng-deployment-service.yaml](https://github.com/aliantli/sg_playbook/blob/cdc31e8b133e95d6a17ef605bc316d0a9425526a/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-service.yaml)
