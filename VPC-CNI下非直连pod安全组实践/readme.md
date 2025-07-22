@@ -3,8 +3,7 @@
 # 
 # 外部入站流量 
 ### service四层
-[<img width="3371" height="664" alt="企业微信截图_f6c8281a-5853-4513-b146-43b0151600b5" src="https://github.com/user-attachments/assets/df1de979-b3f6-4273-be5e-a10abe27f735" />
-](https://github.com/aliantli/sg_playbook/blob/bc3f100afd1a3d02aa830efd5579adbaff29f09e/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_f6c8281a-5853-4513-b146-43b0151600b5.png)
+
 ### ingress七层
 [<img width="3428" height="664" alt="企业微信截图_29db6bf8-057b-4234-b4b7-bf2bc612c88f" src="https://github.com/user-attachments/assets/79a309d3-9c54-4356-b7fc-b75930415785" />
 ](https://github.com/aliantli/sg_playbook/blob/aed4d33fe8f2817c7341d4644cc0788e354bd2ff/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_29db6bf8-057b-4234-b4b7-bf2bc612c88f.png)
@@ -41,19 +40,26 @@ service四层安全组配置：
 ## 服务部署及验证<br>
 ### 集群层面
 1.创建原生节点并绑定已创建好的节点安全组<br>
-2.为pod(辅助)网卡绑定pod(辅助)安全组
-前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组(pod(辅助)网卡默认不绑定安全组需要手动开启)<br>
+2.为pod(辅助)网卡绑定pod(辅助)安全组<br>
+前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组并绑定自己所创建的pod(辅助)网卡安全组<br>
 [<img width="908" height="197" alt="Clipboard_Screenshot_1753100854" src="https://github.com/user-attachments/assets/7cd0a352-beaf-459f-bab8-11658b5e2e2e" />
 ](https://github.com/aliantli/sg_playbook/blob/18ba73f4759d9368be1f6bc1c99e8c80251584bd/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753100854.png)<br>
-3，将clb安全组通过注解方式进行绑定
+3，将clb安全组通过注解方式进行绑定<br>
 service四层
 ```
+#为yaml文件里service部分添加如下内容
 metadata:
   name: nginx
   annotations:
-    service.cloud.tencent.com/security-groups: 'sg-ephmfdsf'
+    service.cloud.tencent.com/security-groups: 'sg-xxxxxxx'  #改为自己所创建的安全组id
 ```
 ingress七层
+```
+#为yaml文件里ingress部分添加如下内容
+metadata:
+  annotations:
+    ingress.cloud.tencent.com/security-groups: 'sg-xxxxx'  #改为自己所创建的安全组id
+  name: nginx
 ```
 ### 节点层面
 1:service四层<br>
