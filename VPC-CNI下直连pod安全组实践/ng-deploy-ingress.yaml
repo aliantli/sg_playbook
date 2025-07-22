@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx  # 服务名称
+spec:
+  type: NodePort  # 节点端口类型
+  selector:
+    app: nginx  # 必须与Deployment中Pod标签匹配
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80          # Service的端口（CLB通过此端口访问）
+    targetPort: 80     # 容器监听的端口（Pod端口）
+    nodePort: 31000
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.cloud.tencent.com/direct-access: 'true'
+    ingress.cloud.tencent.com/security-groups: 'sg-m2bb6vu3'  #绑定安全组id
+  name: nginx
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx  # 关联您创建的NodePort Service
+            port:
+              number: 80        # Service端口
