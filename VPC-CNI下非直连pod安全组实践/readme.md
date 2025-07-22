@@ -90,14 +90,14 @@ service/nginx created
 ### 验证
 执行下面命令查看ingress所生成的供外网访问的IP
 ```
-[root@VM-35-22-tlinux ~]# kubectl get svc 
-NAME         TYPE           CLUSTER-IP    EXTERNAL-IP    PORT(S)        AGE
-kubernetes   ClusterIP      172.16.0.1    <none>         443/TCP        34m
-nginx        LoadBalancer   172.16.91.7   106.52.99.35   80:30844/TCP   100s
+[root@VM-35-244-tlinux ~]# kubectl get service -o wide
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)        AGE     SELECTOR
+kubernetes   ClusterIP      172.16.0.1      <none>           443/TCP        4h22m   <none>
+nginx        LoadBalancer   172.16.60.200   119.91.244.213   80:30713/TCP   156m    app=nginx
 ```
 执行curl命令访问,返回200即为成功
 ```
-[root@VM-35-22-tlinux ~]# curl -I http://106.52.99.35:80
+[root@VM-35-22-tlinux ~]# curl -I http://119.91.244.213:80
 HTTP/1.1 200 OK
 Server: nginx/1.29.0
 Date: Tue, 22 Jul 2025 02:44:12 GMT
@@ -109,9 +109,18 @@ ETag: "685adee1-267"
 Accept-Ranges: bytes
 ```
 # 问题快速排查
+ingress七层结构：
    | 状态码 | 排查点| 排查项目|
    | :-----: | :--: | :-----: |
    | 502  | clb层 |  是否放通服务端口 |
    | 504 | pod(辅助)网卡层 |  是否放通服务暴露的端口 |
    | | 节点层 |  是否放通service所绑定的主机端口 |
 
+service四层结构：<br>
+访问出现time out 排查方式：<br>
+1:clb层<br>
+检查clb安全组是否放通service所绑定的服务端口<br>
+2:节点层<br>
+查看节点安全组规则是否放通service所绑定的主机端口<br>
+3:pod(辅助)网卡层<br>
+查看pod(辅助)网卡安全组是否放通pod暴露的服务端口
