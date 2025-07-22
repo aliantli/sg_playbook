@@ -32,7 +32,7 @@ spec:
     protocol: TCP
     port: 80          # Service的端口（CLB通过此端口访问）
     targetPort: 80     # 容器监听的端口（Pod端口）
-    
+    nodePort: 31000
 ---
 
 apiVersion: networking.k8s.io/v1
