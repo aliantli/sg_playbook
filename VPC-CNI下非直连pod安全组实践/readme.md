@@ -55,16 +55,14 @@ ingress.networking.k8s.io/minimal-ingress created
 [<img width="908" height="197" alt="Clipboard_Screenshot_1753100854" src="https://github.com/user-attachments/assets/7cd0a352-beaf-459f-bab8-11658b5e2e2e" />
 ](https://github.com/aliantli/sg_playbook/blob/18ba73f4759d9368be1f6bc1c99e8c80251584bd/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753100854.png)
 <br>到此服务及其安全组已经部署完成
-### 部署方式2:service四层结构
-1.创建原生节点并绑定已创建好的节点安全组<br>
-# 验证
+### 验证
 执行下面命令查看ingress所生成的供外网访问的IP
 ```
 [root@VM-35-196-tlinux ~]# kubectl get ingress -o wide
 NAME              CLASS    HOSTS   ADDRESS        PORTS   AGE
 minimal-ingress   <none>   *       106.52.99.35   80      8m36s
 ```
-执行curl命令访问
+执行curl命令访问，返回200即为成功
 ```
 [root@VM-35-196-tlinux ~]# curl -I 106.52.99.35
 HTTP/1.1 200 OK
@@ -75,6 +73,41 @@ Connection: keep-alive
 Server: nginx/1.25.5
 Last-Modified: Tue, 16 Apr 2024 14:29:59 GMT
 ETag: "661e8b67-267"
+Accept-Ranges: bytes
+```
+### 部署方式2:service四层结构
+1.创建原生节点并绑定已创建好的节点安全组<br>
+2.家目录创建[ng-deploy-service.yaml](https://github.com/aliantli/sg_playbook/blob/3ddd5fb950d25b04c7ccc071be55ebf6903066d8/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-service.yaml)<br>
+3:执行下列命令:
+```
+[root@VM-35-22-tlinux ~]# kubectl apply -f ng-deploy-service.yaml 
+deployment.apps/nginx created
+service/nginx created
+```
+4.为pod(辅助)网卡绑定pod(辅助)安全组
+前往 控制台-->集群-->组件管理-->eniipamd-->更新配置 开启pod(辅助)网卡安全组(pod(辅助)网卡默认不绑定安全组需要手动开启)<br>
+[<img width="908" height="197" alt="Clipboard_Screenshot_1753100854" src="https://github.com/user-attachments/assets/7cd0a352-beaf-459f-bab8-11658b5e2e2e" />
+](https://github.com/aliantli/sg_playbook/blob/18ba73f4759d9368be1f6bc1c99e8c80251584bd/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/image/Clipboard_Screenshot_1753100854.png)
+<br>到此服务及其安全组已经部署完成
+### 验证
+执行下面命令查看ingress所生成的供外网访问的IP
+```
+[root@VM-35-22-tlinux ~]# kubectl get svc 
+NAME         TYPE           CLUSTER-IP    EXTERNAL-IP    PORT(S)        AGE
+kubernetes   ClusterIP      172.16.0.1    <none>         443/TCP        34m
+nginx        LoadBalancer   172.16.91.7   106.52.99.35   80:30844/TCP   100s
+```
+执行curl命令访问,返回200即为成功
+```
+[root@VM-35-22-tlinux ~]# curl -I http://106.52.99.35:80
+HTTP/1.1 200 OK
+Server: nginx/1.29.0
+Date: Tue, 22 Jul 2025 02:44:12 GMT
+Content-Type: text/html
+Content-Length: 615
+Last-Modified: Tue, 24 Jun 2025 17:22:41 GMT
+Connection: keep-alive
+ETag: "685adee1-267"
 Accept-Ranges: bytes
 ```
 # 问题快速排查
