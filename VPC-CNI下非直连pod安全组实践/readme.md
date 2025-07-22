@@ -59,7 +59,7 @@ ingress.networking.k8s.io/minimal-ingress created
 到此服务及其安全组已经部署完成
 ```
 2,ingress七层
-参考文件：
+参考文件：[ng-deployment-ingress.yaml](https://github.com/aliantli/sg_playbook/blob/8a5105bd1a1d581fef7a4e5dc95cab3968d4134c/VPC-CNI%E4%B8%8B%E9%9D%9E%E7%9B%B4%E8%BF%9Epod%E5%AE%89%E5%85%A8%E7%BB%84%E5%AE%9E%E8%B7%B5/ng-deploy-ingress.yaml)
 ```
 1创建ng-deployment-ingress.yaml
 2:执行一下命令
