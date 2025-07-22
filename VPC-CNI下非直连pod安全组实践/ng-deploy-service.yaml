@@ -29,8 +29,7 @@ kind: Service
 metadata:
   name: nginx
   annotations:
-    service.kubernetes.io/loadbalance-type: "external"  # 声明外部 CLB
-    service.kubernetes.io/tencentcloud-loadbalance-security-group: "sg-ephmfdsf"  # 绑定安全组 ID[1,6](@ref)
+    service.cloud.tencent.com/security-groups: 'sg-ephmfdsf'  # 绑定安全组 ID[1,6](@ref)
 spec:
   type: LoadBalancer
   selector:
